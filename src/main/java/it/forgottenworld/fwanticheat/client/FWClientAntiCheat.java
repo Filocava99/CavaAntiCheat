@@ -3,7 +3,6 @@ package it.forgottenworld.fwanticheat.client;
 import it.forgottenworld.fwanticheat.ClientInfoPacket;
 import it.forgottenworld.fwanticheat.InspectionResult;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -20,7 +19,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
