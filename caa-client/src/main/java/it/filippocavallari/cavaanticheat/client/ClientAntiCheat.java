@@ -1,14 +1,14 @@
-package it.forgottenworld.fwanticheat.client;
+package it.filippocavallari.cavaanticheat.client;
 
-import it.forgottenworld.fwanticheat.ClientInfoPacket;
-import it.forgottenworld.fwanticheat.InspectionResult;
+import it.filippocavallari.cavaanticheat.common.ClientInfoPacket;
+import it.filippocavallari.cavaanticheat.common.HashingFunction;
+import it.filippocavallari.cavaanticheat.common.InspectionResult;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -23,18 +23,14 @@ import java.util.List;
 import java.util.Objects;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("fw_client_anti_cheat")
-public class FWClientAntiCheat {
-
+@Mod(ClientAntiCheat.MODID)
+public class ClientAntiCheat {
+    public static final String MODID = "cavaanticheat";
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public FWClientAntiCheat() {
-        // Register the setup method for modloading
+    public ClientAntiCheat() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the doClientStuff method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -44,12 +40,11 @@ public class FWClientAntiCheat {
         ForgeSpigotChannel.registerMessage();
     }
 
-    private void clientSetup(final FMLClientSetupEvent event) {
-    }
+
 
     @SubscribeEvent
     public void onWorldJoin(final EntityJoinWorldEvent event){
-        if(event.getEntity() instanceof PlayerEntity){
+        if(event.getEntity() instanceof Player){
             ForgeSpigotChannel.SIMPLE_CHANNEL.sendToServer(inspectClient());
         }
     }
@@ -91,7 +86,7 @@ public class FWClientAntiCheat {
     }
 
     private void inspectResourcePacks(ClientInfoPacket clientInfoPacket){
-        File resourcePacksFolder = Minecraft.getInstance().getFileResourcePacks();
+        File resourcePacksFolder = Minecraft.getInstance().getResourcePackDirectory();
         for(File file : Objects.requireNonNull(resourcePacksFolder.listFiles())){
             if(file.isDirectory()){
                 clientInfoPacket.setTextureInspectionResult(InspectionResult.INVALID_TEXTURE_FORMAT);

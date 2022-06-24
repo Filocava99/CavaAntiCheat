@@ -1,0 +1,6 @@
+#True if you want the anti cheat to validate the minecraft.jar checksum
+inspect-minecraft: false
+#True if you want the anti cheat to validate the forge.jar checksum
+inspect-forge: false
+#Seconds to wait before kicking the player if the packet is not received
+delay-before-kick: 5

@@ -1,4 +1,4 @@
-package it.forgottenworld.fwanticheat;
+package it.filippocavallari.cavaanticheat.common;
 
 import java.io.*;
 

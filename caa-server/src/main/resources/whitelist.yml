@@ -1,0 +1,9 @@
+#List of the enabled mod on the server with their checksums. Don't forget to add both minecraft and forge.
+#To calculate the checksums use: https://emn178.github.io/online-tools/sha256_checksum.html
+whitelisted-mods:
+#  minecraft: checksum
+#  forge: checksum
+#  exampleMod: exampleChecksum
+#List of the enabled resource packs on the server with their checksums.
+whitelisted-textures:
+#  exampleTexture: exampleChecksum

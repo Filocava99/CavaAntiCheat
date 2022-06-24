@@ -10,9 +10,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/caa-client" />
+            <option value="$PROJECT_DIR$/caa-common" />
+            <option value="$PROJECT_DIR$/caa-server" />
           </set>
         </option>
-        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>

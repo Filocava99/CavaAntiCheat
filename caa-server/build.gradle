@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
+}
+apply plugin: 'java'
+
+group 'it.filippocavallari.cavasanticheat.server'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
+    compileOnly 'org.jetbrains:annotations:23.0.0'
+    implementation project(":caa-common")
+}
+
+jar.enabled = false
+assemble.dependsOn shadowJar
+
+shadowJar {
+    archiveBaseName.set('CavaAntiCheatServer')
+    archiveClassifier.set('')
+    archiveVersion.set(getVersion())
+    dependencies {
+        exclude(dependency('org.spigotmc:spigot-api:.*'))
+    }
+}

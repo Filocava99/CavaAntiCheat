@@ -1,10 +1,10 @@
-package it.forgottenworld.fwanticheat.client;
+package it.filippocavallari.cavaanticheat.client;
 
-import it.forgottenworld.fwanticheat.ClientInfoPacket;
-import it.forgottenworld.fwanticheat.SerializationUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import it.filippocavallari.cavaanticheat.common.ClientInfoPacket;
+import it.filippocavallari.cavaanticheat.common.SerializationUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +20,7 @@ public class ForgeSpigotChannel {
 
     public static void registerChannel(){
         SIMPLE_CHANNEL = NetworkRegistry.newSimpleChannel(
-                new ResourceLocation("fw", "anticheat"),
+                new ResourceLocation("cava", "anticheat"),
                 () -> PROTOCOL_VERSION,
                 PROTOCOL_VERSION::equals,
                 PROTOCOL_VERSION::equals

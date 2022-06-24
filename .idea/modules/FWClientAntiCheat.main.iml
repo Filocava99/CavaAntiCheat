@@ -5,15 +5,17 @@
       <configuration>
         <autoDetectTypes>
           <platformType>FORGE</platformType>
+          <platformType>MIXIN</platformType>
           <platformType>MCP</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>
   </component>
   <component name="McpModuleSettings">
-    <option name="mappingFile" value="C:\Users\filip\Desktop\Workspaces\IntelliJIdea\FWClientAntiCheat\build\createMcpToSrg\output.tsrg" />
-    <option name="mcpVersion" value="stable_60-1.15" />
-    <option name="minecraftVersion" value="1.15.2" />
+    <option name="mappingFile" value="C:\Users\filip\Desktop\Workspaces\IdeaProjects\FWClientAntiCheat\build\createMcpToSrg\output.tsrg" />
+    <option name="mcpVersion" value="official_1.19" />
+    <option name="minecraftVersion" value="1.19" />
+    <option name="platformVersion" value="41.0.45" />
     <option name="srgType" value="TSRG" />
   </component>
 </module>
