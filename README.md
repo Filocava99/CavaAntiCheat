@@ -1,4 +1,4 @@
-# CavaAntiCheat
+# Cava's Anti Cheat
 Cava's AntiCheat is composed by a client-side Forge mod and a server-side Spigot plugin that form a powerful client-server anticheat for Minecraft. It detects unauthorized loaded mods, textures and tampering using hashes.
 
 ## Installation
