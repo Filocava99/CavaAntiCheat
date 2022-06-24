@@ -51,6 +51,8 @@ public class ClientAntiCheat {
 
     private ClientInfoPacket inspectClient(){
         ClientInfoPacket clientInfoPacket  = new ClientInfoPacket();
+        clientInfoPacket.setModsInspectionResult(InspectionResult.NORMAL);
+        clientInfoPacket.setTextureInspectionResult(InspectionResult.NORMAL);
         inspectMods(clientInfoPacket);
         inspectResourcePacks(clientInfoPacket);
         return clientInfoPacket;

@@ -30,20 +30,20 @@ public class PacketHandler implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, byte[] message) {
-        try{
+        try {
             ClientInfoPacket clientInfoPacket = parsePacket(message);
             instance.getPlayerSet().remove(player);
-            if(clientInfoPacket.getModsInspectionResult() != InspectionResult.NORMAL || clientInfoPacket.getTextureInspectionResult() != InspectionResult.NORMAL){
+            if (clientInfoPacket.getModsInspectionResult() != InspectionResult.NORMAL || clientInfoPacket.getTextureInspectionResult() != InspectionResult.NORMAL) {
                 player.kickPlayer(evaluateInspectionResult(clientInfoPacket.getModsInspectionResult()) + "\n" + evaluateInspectionResult(clientInfoPacket.getTextureInspectionResult()));
                 instance.log(Level.WARNING, " " + player.getName() + " kicked for reason: " + clientInfoPacket.getModsInspectionMessage());
-            }else{
+            } else {
                 String checksumEvaluationResult = evaluateChecksums(clientInfoPacket.getModsChecksumMap(), clientInfoPacket.getTextureChecksumMap());
-                if(!checksumEvaluationResult.equals("")){
+                if (!checksumEvaluationResult.equals("")) {
                     player.kickPlayer(checksumEvaluationResult);
                     instance.log(Level.WARNING, " " + player.getName() + " kicked for reason: \n" + checksumEvaluationResult);
                 }
             }
-        }catch (IOException | ClassNotFoundException | ConcurrentModificationException e ){
+        } catch (IOException | ClassNotFoundException | ConcurrentModificationException e) {
             e.printStackTrace();
             player.kickPlayer(ChatColor.DARK_RED + "Unable to verify the presence of the client anti cheat\nTry to rejoin\nIf the error persists contact the Staff");
             instance.log(Level.SEVERE, " " + player.getName() + " kicked for: " + e.getMessage());
@@ -52,13 +52,13 @@ public class PacketHandler implements PluginMessageListener {
 
     private ClientInfoPacket parsePacket(byte[] message) throws IOException, ClassNotFoundException {
         ClientInfoPacket clientInfoPacket;
-        byte[] packet = Arrays.copyOfRange(message,1,message.length);
+        byte[] packet = Arrays.copyOfRange(message, 1, message.length);
         clientInfoPacket = (ClientInfoPacket) SerializationUtils.deserialize(packet);
         return clientInfoPacket;
     }
 
-    private String evaluateInspectionResult(InspectionResult result){
-        switch (result){
+    private String evaluateInspectionResult(InspectionResult result) {
+        switch (result) {
             case FILE_NOT_FOUND:
                 return "Mod file has been deleted by a third party";
             case IO_EXCEPTION:
@@ -72,34 +72,35 @@ public class PacketHandler implements PluginMessageListener {
         }
     }
 
-    private String evaluateChecksums(Map<String, String> modsChecksum, Map<String, String> textureChecksum){
+    private String evaluateChecksums(Map<String, String> modsChecksum, Map<String, String> textureChecksum) {
         StringBuilder stringBuilder = new StringBuilder();
         ConfigurationSection whitelistedMods = whitelistConfig.getConfig().getConfigurationSection("whitelisted-mods");
-        for(Map.Entry<String, String> entry : modsChecksum.entrySet()){
-            assert whitelistedMods != null;
+        if (whitelistedMods == null) whitelistedMods = whitelistConfig.getConfig().createSection("whitelisted-mods");
+        for (Map.Entry<String, String> entry : modsChecksum.entrySet()) {
             String modName = entry.getKey();
-            if(modName.equals("minecraft") && !config.getConfig().getBoolean("inspect-minecraft")){
+            if (modName.equals("minecraft") && !config.getConfig().getBoolean("inspect-minecraft")) {
                 continue;
             }
-            if(modName.equals("forge") && !config.getConfig().getBoolean("inspect-forge")){
+            if (modName.equals("forge") && !config.getConfig().getBoolean("inspect-forge")) {
                 continue;
             }
-            if(whitelistedMods.contains(entry.getKey())){
-                if(!Objects.equals(whitelistedMods.getString(entry.getKey()), entry.getValue())){
+            if (whitelistedMods.contains(entry.getKey())) {
+                if (!Objects.equals(whitelistedMods.getString(entry.getKey()), entry.getValue())) {
                     stringBuilder.append("Mod tampered: ").append(entry.getKey()).append("\n");
                 }
-            }else{
+            } else {
                 stringBuilder.append("Mod not allowed: ").append(entry.getKey()).append("\n");
             }
         }
         ConfigurationSection whitelistedTextures = whitelistConfig.getConfig().getConfigurationSection("whitelisted-textures");
-        for(Map.Entry<String, String> entry : textureChecksum.entrySet()){
-            assert whitelistedTextures != null;
-            if(whitelistedTextures.contains(entry.getKey())){
-                if(!Objects.equals(whitelistedTextures.getString(entry.getKey()), entry.getValue())){
+        if (whitelistedTextures == null)
+            whitelistedTextures = whitelistConfig.getConfig().createSection("whitelisted-textures");
+        for (Map.Entry<String, String> entry : textureChecksum.entrySet()) {
+            if (whitelistedTextures.contains(entry.getKey())) {
+                if (!Objects.equals(whitelistedTextures.getString(entry.getKey()), entry.getValue())) {
                     stringBuilder.append("Texture tampered: ").append(entry.getKey()).append("\n");
                 }
-            }else{
+            } else {
                 stringBuilder.append("Texture not allowed: ").append(entry.getKey()).append("\n");
             }
         }

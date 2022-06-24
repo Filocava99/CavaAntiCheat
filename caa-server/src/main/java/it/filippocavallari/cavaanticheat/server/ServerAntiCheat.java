@@ -24,15 +24,15 @@ public final class ServerAntiCheat extends JavaPlugin {
         Config whitelistConfig = null;
         Config config = null;
         try {
-            fileLogger = new FileLogger(new File(getDataFolder(), "logs.txt"));
             whitelistConfig = new Config("whitelist.yml", this);
             config = new Config("config.yml", this);
+            fileLogger = new FileLogger(new File(getDataFolder(), "logs.txt"));
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage());
             e.printStackTrace();
         }
         PacketHandler packetHandler = new PacketHandler(this, config, whitelistConfig);
-        Bukkit.getMessenger().registerIncomingPluginChannel(this, "fw:anticheat", packetHandler);
+        Bukkit.getMessenger().registerIncomingPluginChannel(this, "cava:anticheat", packetHandler);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(this, config), this);
     }
 

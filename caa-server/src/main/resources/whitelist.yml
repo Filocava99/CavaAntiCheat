@@ -3,7 +3,7 @@
 whitelisted-mods:
 #  minecraft: checksum
 #  forge: checksum
-#  exampleMod: exampleChecksum
+#  cavaanticheat: checksum
 #List of the enabled resource packs on the server with their checksums.
 whitelisted-textures:
 #  exampleTexture: exampleChecksum
