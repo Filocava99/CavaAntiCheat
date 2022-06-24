@@ -35,4 +35,4 @@ A: No, every file in the mods folder will be checked.
 Q: What if a user changes the modID of a cheat to the modID of a whitelisted mod?  
 A: That's not a problem. The hashes of the mod will not match, thus preventing the user from joining.  
   
-Disclaimers: as every client-server anticheat not running at kernel level, a skilled user can still find a way to bypass the protection. Other layers of protections server-side only are raccomended.
+Disclaimer: as every client-server anticheat not running at kernel level, a skilled user can still find a way to bypass the protection. Other layers of protections server-side only are raccomended.
