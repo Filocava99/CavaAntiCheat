@@ -6,8 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 import java.util.ConcurrentModificationException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 
 public class PlayerListener implements Listener {
@@ -22,6 +24,11 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
+        if(instance.isFloodgateEnabled()){
+            if(FloodgateApi.getInstance().isFloodgatePlayer(event.getPlayer().getUniqueId())){
+                return;
+            }
+        }
         final String kickMessage = "Unable to verify the presence of the client anti cheat";
         instance.getPlayerSet().add(event.getPlayer());
         Bukkit.getScheduler().runTaskLater(instance,() -> {

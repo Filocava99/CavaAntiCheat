@@ -18,9 +18,16 @@ public final class ServerAntiCheat extends JavaPlugin {
     private final Logger logger = getLogger();
     private final Set<Player> playerSet = new HashSet<>();
     private FileLogger fileLogger;
+    private boolean isFloodgateEnabled = false;
 
     @Override
     public void onEnable() {
+        isFloodgateEnabled = getServer().getPluginManager().getPlugin("floodgate") != null;
+        if(isFloodgateEnabled) {
+            logger.info("Hooked into floodgate");
+        }else{
+            logger.info("floodgate not found");
+        }
         Config whitelistConfig = null;
         Config config = null;
         try {
@@ -39,6 +46,10 @@ public final class ServerAntiCheat extends JavaPlugin {
     @Override
     public void onDisable(){
         fileLogger.close();
+    }
+
+    public boolean isFloodgateEnabled() {
+        return isFloodgateEnabled;
     }
 
     public Set<Player> getPlayerSet() {

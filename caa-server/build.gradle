@@ -5,7 +5,7 @@ plugins {
 apply plugin: 'java'
 
 group 'it.filippocavallari.cavasanticheat.server'
-version '1.0.0'
+version '1.1.0'
 
 repositories {
     mavenCentral()
@@ -17,12 +17,17 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+    maven {
+        name= "opencollab-snapshot"
+        url = "https://repo.opencollab.dev/maven-snapshots/"
+    }
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
     compileOnly 'org.jetbrains:annotations:23.0.0'
     implementation project(":caa-common")
+    compileOnly 'org.geysermc.floodgate:api:2.0-SNAPSHOT'
 }
 
 jar.enabled = false
